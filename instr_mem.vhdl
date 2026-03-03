@@ -22,7 +22,7 @@ architecture Behavioral of instr_mem is
                           --       add x7, x10, x7 
                           --       subi x5, x5, 1 (or   addi x5, x5, -1)  
                           --       bne x5, x0, loop       
-        xx => x"FE7FF06F", -- done: j done            [-4; note: assumes PC is already incremented by 4]
+        xx => x"FF9FF06F", -- done: j done            [-4; note: assumes PC is already incremented by 4]
         others => (others => '0')
     );
 begin
