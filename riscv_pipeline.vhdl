@@ -72,7 +72,8 @@ architecture Behavioral of riscv_pipeline is
     signal if_id_jump, id_ex_jump, ex_mem_jump, mem_wb_jump                      : STD_LOGIC;
     signal if_id_load_addr, id_ex_load_addr, ex_mem_load_addr, mem_wb_load_addr  : STD_LOGIC;
     
-     -- Additional signals
+     -- Additional signals    
+    signal not_equal_flag : STD_LOGIC;
     signal stall, start_stall, double_stall        : STD_LOGIC;
     signal stall_counter : integer range 0 to 3 := 0;
     signal mux_select_A  : STD_LOGIC_VECTOR(1 downto 0) := (others => '0');
@@ -326,7 +327,7 @@ begin
 --------------------------------------------------------------------------------
     -- ID units
     -- Register file [used in ID and WB stages]
-    reg_write_chip <= mem_wb_reg_write;
+    reg_write_chip <= <what control signal?>;
     reg_file_inst: reg_file
         port map (
         clk       => clk,
@@ -381,13 +382,16 @@ begin
         data_in   => ex_mem_reg2_data,
         data_out  => mem_data,
         mem_read  => ex_mem_mem_read,
-        mem_write => ex_mem_mem_write
+        mem_write => <what control signal?>
     );
     mem_wb_mem_data <= mem_data; 
 
+    -- Comparator 
+    not_equal_flag <= '1' when <what do we compare to decide if we should branch?> else '0';
+    
     next_pc <= <math based on NPC and imm> when (<what control signals?>) else -- branch case
                <math based on NPC and imm> when (<what control signals?>) else  -- jump case
-               NPC when (<what control signals?>); -- note: this happens during IF !!! 1st two during MEM
+               NPC when (<what control signals? are any needed?>); -- note: this happens during IF !!! 1st two during MEM
                       
     -- MEM/WB pipeline register
 
