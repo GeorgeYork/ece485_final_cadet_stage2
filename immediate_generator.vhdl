@@ -35,13 +35,11 @@ begin
                 end if;                   
             when "1100011" => -- BNE
                 if instr(31) = '0' then  -- positive
-                    imm <= "0000000000000000000000" & instr(7) &  instr(30 downto 25) & instr(11 downto 9); -- div by 4, or shift left 2
+                    imm <= "000000000000000000000" & instr(7) &  instr(30 downto 25) & instr(11 downto 8); -- byte addressable, not word
                 else -- negative
-                    imm <= "1111111111111111111111" & instr(7) &  instr(30 downto 25) & instr(11 downto 9); -- div by 4, or shift left 2
-                end if;                
+                    imm <= "111111111111111111111" & instr(7) &  instr(30 downto 25) & instr(11 downto 8); -- byte addressable, not word
+                end if;                 
             when "1101111" => -- J
-             
-                -- ethan chapman change
                 if instr(31) = '0' then  -- positive
                     imm <= "000000000000" & instr(31) & instr(19 downto 12) & instr(20) & instr(30 downto 21);
                 else -- negative
